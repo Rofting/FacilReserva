@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.svalero.facilreserva.domain.Reservation;
 import org.svalero.facilreserva.domain.Restaurant;
+import org.svalero.facilreserva.domain.dto.RestaurantOutDto;
 import org.svalero.facilreserva.exception.ReservationNotFoundException;
 import org.svalero.facilreserva.exception.RestaurantNotFoundException;
 import org.svalero.facilreserva.repository.ReservationRepository;
@@ -23,11 +24,11 @@ public class RestaurantService {
     @Autowired
     private ReservationRepository reservationRepository;
 
-    public List<Restaurant> getAll() {
-        return restaurantRepository.findAll();
+    public List<RestaurantOutDto> getAll() {
+        return modelMapper.map(restaurantRepository.findAll(), List.class);
     }
 
-    public Restaurant get(long id) throws RestaurantNotFoundException {
+    public Restaurant get(long id, R) throws RestaurantNotFoundException {
         return restaurantRepository.findById(id)
                 .orElseThrow(RestaurantNotFoundException::new);
     }
@@ -50,4 +51,5 @@ public class RestaurantService {
         modelMapper.map(restaurant, existingRestaurant);
         return restaurantRepository.save(existingRestaurant);
     }
+
 }

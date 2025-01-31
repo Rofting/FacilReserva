@@ -1,11 +1,17 @@
 package org.svalero.facilreserva.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
-@Entity
+@Entity(name = "Restaurant")
+@Table(name="restaurants")
 public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +24,7 @@ public class Restaurant {
     private String address;
 
     @Column(nullable = false)
-    private int capacity; // Asegúrate de que esto sea un int, no String.
+    private int capacity;
 
     @Column(nullable = false)
     private Boolean available;

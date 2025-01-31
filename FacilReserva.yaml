@@ -1,0 +1,248 @@
+openapi: 3.0.3
+info:
+  title: FacilReserva API
+  description: API para gestionar reservas y restaurantes.
+  version: 1.0.0
+tags:
+  - name: reservations
+    description: Operaciones con las reservas
+  - name: restaurants
+    description: Opereraciones con los restaurantes
+servers:
+  - url: /api
+    description: API base URL
+paths:
+  /reservations:
+    get:
+      tags:
+        - reservations
+      summary: Obtener todas las reservas
+      operationId: getAllReservations
+      responses:
+        '200':
+          description: Lista de todas las reservas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReservationOutDto'
+    post:
+      tags:
+        - reservations
+      summary: Agregar una nueva reserva
+      operationId: addReservation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReservationInDto'
+      responses:
+        '201':
+          description: Reserva creada con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReservationOutDto'
+
+  /reservations/{reservationId}:
+    put:
+      tags:
+        - reservations
+      summary: Modificar una reserva existente
+      operationId: modifyReservation
+      parameters:
+        - name: reservationId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReservationInDto'
+      responses:
+        '200':
+          description: Reserva modificada con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReservationOutDto'
+        '404':
+          description: Reserva no encontrada
+
+    delete:
+      tags:
+        - reservations
+      summary: Eliminar una reserva existente
+      operationId: deleteReservation
+      parameters:
+        - name: reservationId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Reserva eliminada con éxito
+        '404':
+          description: Reserva no encontrada
+
+  /restaurants:
+    get:
+      tags:
+        - restaurants
+      summary: Obtener todos los restaurantes
+      operationId: getAllRestaurants
+      responses:
+        '200':
+          description: Lista de todos los restaurantes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RestaurantOutDto'
+    post:
+      tags:
+        - restaurants
+      summary: Agregar un nuevo restaurante
+      operationId: addRestaurant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestaurantInDto'
+      responses:
+        '201':
+          description: Restaurante creado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantOutDto'
+
+  /restaurants/{restaurantId}:
+    put:
+      tags:
+        - restaurants
+      summary: Modificar un restaurante existente
+      operationId: modifyRestaurant
+      parameters:
+        - name: restaurantId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestaurantInDto'
+      responses:
+        '200':
+          description: Restaurante modificado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantOutDto'
+        '404':
+          description: Restaurante no encontrado
+
+    delete:
+      tags:
+        - restaurants
+      summary: Eliminar un restaurante
+      operationId: deleteRestaurant
+      parameters:
+        - name: restaurantId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Restaurante eliminado con éxito
+        '404':
+          description: Restaurante no encontrado
+
+components:
+  schemas:
+    ReservationInDto:
+      type: object
+      properties:
+        nameReservation:
+          type: string
+          description: Nombre de la reserva
+        dateReservation:
+          type: string
+          format: date
+          description: Fecha de la reserva
+        persons:
+          type: integer
+          description: Número de personas
+        confirmation:
+          type: boolean
+          description: Estado de confirmación
+        restaurantId:
+          type: integer
+          description: ID del restaurante asociado
+    ReservationOutDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID de la reserva
+        nameReservation:
+          type: string
+          description: Nombre de la reserva
+        dateReservation:
+          type: string
+          format: date
+          description: Fecha de la reserva
+        persons:
+          type: integer
+          description: Número de personas
+        confirmation:
+          type: boolean
+          description: Estado de confirmación
+        restaurantId:
+          type: integer
+          description: ID del restaurante asociado
+    RestaurantInDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre del restaurante
+        address:
+          type: string
+          description: Dirección del restaurante
+        capacity:
+          type: integer
+          description: Capacidad del restaurante
+        available:
+          type: boolean
+          description: Estado de disponibilidad del restaurante
+    RestaurantOutDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID del restaurante
+        name:
+          type: string
+          description: Nombre del restaurante
+        address:
+          type: string
+          description: Dirección del restaurante
+        capacity:
+          type: integer
+          description: Capacidad del restaurante
+        available:
+          type: boolean
+          description: Estado de disponibilidad del restaurante
