@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReservationInDto {
-
     @NotNull(message = "El nombre de la reserva no puede ser nulo")
     private String nameReservation;
 
@@ -25,8 +24,4 @@ public class ReservationInDto {
 
     @NotNull(message = "El estado de confirmación no puede ser nulo")
     private Boolean confirmation;
-
-    @NotNull(message = "El ID del restaurante no puede ser nulo")
-    private Long restaurantId;
-
 }

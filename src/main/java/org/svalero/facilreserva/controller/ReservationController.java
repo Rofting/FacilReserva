@@ -1,5 +1,6 @@
 package org.svalero.facilreserva.controller;
 
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.FieldError;
@@ -23,7 +24,6 @@ import java.util.Map;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/reservations")
 public class ReservationController {
 
     @Autowired
@@ -32,7 +32,7 @@ public class ReservationController {
     private final Logger logger = LoggerFactory.getLogger(ReservationController.class);
 
     // Obtener todas las reservas
-    @GetMapping
+    @GetMapping("/reservations")
     public ResponseEntity<List<ReservationOutDto>> getAll() {
         List<ReservationOutDto> reservations = reservationService.getAll();
         logger.info("Fetching all reservations");
@@ -40,35 +40,36 @@ public class ReservationController {
     }
 
     // Obtener una reserva por ID
-    @GetMapping("/{reservationId}")
-    public ResponseEntity<ReservationOutDto> getById(@PathVariable Long reservationId) throws ReservationNotFoundException {
+    @GetMapping("/reservations/{reservationId}")
+    public ResponseEntity<Reservation> getById(@PathVariable Long reservationId) throws ReservationNotFoundException {
         logger.info("Begin reservation with id");
         Reservation reservation = reservationService.get(reservationId);
+        logger.info("End reservation with id");
         return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 
     // Agregar una reserva
-    @PostMapping
-    public ResponseEntity<ReservationOutDto> addReservation(@RequestBody ReservationInDto reservationInDto) {
+    @PostMapping("/restaurants/{restaurantId}/reservations")
+    public ResponseEntity<ReservationOutDto> addReservation(@PathVariable long restaurantId, @Valid @RequestBody ReservationInDto reservation) {
         logger.info("Adding new reservation");
-        ReservationOutDto newReservation = reservationService.add(reservationInDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newReservation);
+        ReservationOutDto newReservation = reservationService.add(restaurantId, reservation);
+        return new ResponseEntity<>(newReservation, HttpStatus.CREATED);
     }
 
     // Modificar una reserva
-    @PutMapping("/{reservationId}")
-    public ResponseEntity<ReservationOutDto> modifyReservation(@PathVariable long reservationId, @RequestBody ReservationInDto reservationInDto)
-            throws ReservationNotFoundException {
-        logger.info("Modifying reservation with id: {}", reservationId);
+    @PutMapping("/reservations/{reservationId}")
+    public ResponseEntity<ReservationOutDto> modifyReservation(@PathVariable long reservationId, @Valid @RequestBody ReservationInDto reservationInDto) throws ReservationNotFoundException {
+        logger.info("Begin modify reservation with id");
         ReservationOutDto modifiedReservation = reservationService.modify(reservationId, reservationInDto);
         return ok(modifiedReservation);
     }
 
     // Eliminar una reserva
-    @DeleteMapping("/{reservationId}")
+    @DeleteMapping("/reservations/{reservationId}")
     public ResponseEntity<Void> deleteReservation(@PathVariable long reservationId) throws ReservationNotFoundException {
         logger.info("Deleting reservation with id: {}", reservationId);
         reservationService.delete(reservationId);
+        logger.info("end delete reservation");
         return ResponseEntity.noContent().build();
     }
 

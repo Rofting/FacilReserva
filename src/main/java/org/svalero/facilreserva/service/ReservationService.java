@@ -5,51 +5,60 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.svalero.facilreserva.domain.Reservation;
+import org.svalero.facilreserva.domain.Restaurant;
 import org.svalero.facilreserva.domain.dto.ReservationInDto;
 import org.svalero.facilreserva.domain.dto.ReservationOutDto;
 import org.svalero.facilreserva.exception.ReservationNotFoundException;
+import org.svalero.facilreserva.exception.RestaurantNotFoundException;
 import org.svalero.facilreserva.repository.ReservationRepository;
+import org.svalero.facilreserva.repository.RestaurantRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
-
+    @Autowired
+    private RestaurantRepository restaurantRepository;
     @Autowired
     private ModelMapper modelMapper;
 
     public List<ReservationOutDto> getAll() {
         List<Reservation> reservations = reservationRepository.findAll();
-        return modelMapper.map(reservations, new TypeToken<List<ReservationOutDto>>() {}.getType());
+        return modelMapper.map(reservations, new TypeToken<List<ReservationOutDto>>() {
+        }.getType());
     }
 
-    public ReservationOutDto get(long reservationId) throws ReservationNotFoundException {
-        Reservation reservation = reservationRepository.findById(reservationId)
+    public Reservation get(long reservationId) throws ReservationNotFoundException {
+        return reservationRepository.findById(reservationId)
                 .orElseThrow(ReservationNotFoundException::new);
-        return modelMapper.map(reservation, ReservationOutDto.class);
     }
 
     public ReservationOutDto modify(long reservationId, ReservationInDto reservationInDto) throws ReservationNotFoundException {
-        Reservation existingReservation = reservationRepository.findById(reservationId)
+        Reservation reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(ReservationNotFoundException::new);
 
-        modelMapper.map(reservationInDto, existingReservation);
-        Reservation updatedReservation = reservationRepository.save(existingReservation);
-        return modelMapper.map(updatedReservation, ReservationOutDto.class);
+        modelMapper.map(reservationInDto, reservation);
+        reservationRepository.save(reservation);
+        return modelMapper.map(reservation, ReservationOutDto.class);
     }
 
     public void delete(long reservationId) throws ReservationNotFoundException {
-        if (!reservationRepository.existsById(reservationId)) {
-            throw new ReservationNotFoundException();
-        }
+        reservationRepository.findById(reservationId).orElseThrow(ReservationNotFoundException::new);
         reservationRepository.deleteById(reservationId);
     }
 
-    public ReservationOutDto add(ReservationInDto reservationInDto) {
+    public ReservationOutDto add(long restaurantId, ReservationInDto reservationInDto) throws RestaurantNotFoundException {
+        Restaurant restaurant = restaurantRepository.findById(restaurantId)
+                .orElseThrow(RestaurantNotFoundException::new);
+
         Reservation reservation = modelMapper.map(reservationInDto, Reservation.class);
+        reservation.setDateReservation(LocalDate.now());
+        reservation.setRestaurant(restaurant);
         Reservation newReservation = reservationRepository.save(reservation);
+
         return modelMapper.map(newReservation, ReservationOutDto.class);
     }
 }

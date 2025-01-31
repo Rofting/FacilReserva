@@ -30,6 +30,6 @@ public class Reservation {
     private Boolean confirmation;
 
     @ManyToOne
-    @JoinColumn(name = "restaurant_id", nullable = false)
+    @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 }
