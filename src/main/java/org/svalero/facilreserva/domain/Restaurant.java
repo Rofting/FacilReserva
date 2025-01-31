@@ -1,5 +1,6 @@
 package org.svalero.facilreserva.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +30,7 @@ public class Restaurant {
     @Column(nullable = false)
     private Boolean available;
 
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "restaurant")
+    @JsonBackReference(value="restaurants_reservations")
     private List<Reservation> reservations;
 }

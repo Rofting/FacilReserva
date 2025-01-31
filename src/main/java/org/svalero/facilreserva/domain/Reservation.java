@@ -20,7 +20,7 @@ public class Reservation {
     @Column(nullable = false)
     private String nameReservation;
 
-    @Column(nullable = false)
+    @Column(name = "date_reservation", nullable = false)
     private LocalDate dateReservation;
 
     @Column(nullable = false)

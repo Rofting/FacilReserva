@@ -1,10 +1,12 @@
 package org.svalero.facilreserva.service;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.svalero.facilreserva.domain.Reservation;
 import org.svalero.facilreserva.domain.Restaurant;
+import org.svalero.facilreserva.domain.dto.RestaurantInDto;
 import org.svalero.facilreserva.domain.dto.RestaurantOutDto;
 import org.svalero.facilreserva.exception.ReservationNotFoundException;
 import org.svalero.facilreserva.exception.RestaurantNotFoundException;
@@ -21,35 +23,32 @@ public class RestaurantService {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
-    private ReservationRepository reservationRepository;
-
     public List<RestaurantOutDto> getAll() {
-        return modelMapper.map(restaurantRepository.findAll(), List.class);
+        List<Restaurant> restaurants = restaurantRepository.findAll();
+        return modelMapper.map(restaurants, new TypeToken<List<RestaurantOutDto>>() {}.getType());
     }
 
-    public Restaurant get(long id, R) throws RestaurantNotFoundException {
+    public Restaurant get(long id) throws RestaurantNotFoundException {
         return restaurantRepository.findById(id)
                 .orElseThrow(RestaurantNotFoundException::new);
     }
 
-    public Restaurant add(Restaurant restaurant) {
-        return restaurantRepository.save(restaurant);
+    public RestaurantOutDto add(RestaurantInDto restaurantInDto) {
+        Restaurant restaurant = modelMapper.map(restaurantInDto, Restaurant.class);
+        restaurant = restaurantRepository.save(restaurant);
+        return modelMapper.map(restaurant, RestaurantOutDto.class);
     }
 
-    public void delete(long id) throws RestaurantNotFoundException {
-        if (!restaurantRepository.existsById(id)) {
-            throw new RestaurantNotFoundException();
-        }
-        restaurantRepository.deleteById(id);
+    public void delete(long restaurantId) throws RestaurantNotFoundException {
+        Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow(RestaurantNotFoundException::new);
+        restaurantRepository.delete(restaurant);
     }
 
-    public Restaurant modify(long restaurantId, Restaurant restaurant) throws RestaurantNotFoundException {
-        Restaurant existingRestaurant = restaurantRepository.findById(restaurantId)
-                .orElseThrow(RestaurantNotFoundException::new);
-
-        modelMapper.map(restaurant, existingRestaurant);
-        return restaurantRepository.save(existingRestaurant);
+    public RestaurantOutDto modify(long restaurantId, RestaurantInDto restaurantInDto) throws RestaurantNotFoundException {
+        Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow(RestaurantNotFoundException::new);
+        modelMapper.map(restaurantInDto, restaurant);
+        restaurantRepository.save(restaurant);
+        return modelMapper.map(restaurant, RestaurantOutDto.class);
     }
 
 }
