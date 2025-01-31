@@ -37,7 +37,7 @@ public class RestaurantController {
 
     @DeleteMapping("/{restaurantId}")
     public ResponseEntity<Void> deleteRestaurant(@PathVariable long restaurantId) throws RestaurantNotFoundException {
-        restaurantService.remove(restaurantId);
+        restaurantService.delete(restaurantId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

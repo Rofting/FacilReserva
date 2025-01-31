@@ -34,7 +34,7 @@ public class RestaurantService {
         return restaurantRepository.save(restaurant);
     }
 
-    public void remove(long id) throws ReservationNotFoundException {
+    public void delete(long id) throws ReservationNotFoundException {
         restaurantRepository.findById(id).orElseThrow(ReservationNotFoundException::new);
         reservationRepository.deleteById(id);
     }
