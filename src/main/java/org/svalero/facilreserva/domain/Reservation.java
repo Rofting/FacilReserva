@@ -3,6 +3,8 @@ package org.svalero.facilreserva.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 
 @Data
 @Entity
@@ -16,7 +18,7 @@ public class Reservation {
     private String nameReservation;
 
     @Column(nullable = false)
-    private String dateReservation;
+    private LocalDate dateReservation;
 
     @Column(nullable = false)
     private int persons;
