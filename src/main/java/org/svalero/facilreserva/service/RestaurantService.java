@@ -16,33 +16,38 @@ import java.util.List;
 public class RestaurantService {
     @Autowired
     private RestaurantRepository restaurantRepository;
+
     @Autowired
     private ModelMapper modelMapper;
+
     @Autowired
-    ReservationRepository reservationRepository;
+    private ReservationRepository reservationRepository;
 
     public List<Restaurant> getAll() {
-        List<Restaurant> allRestaurants = restaurantRepository.findAll();
-    }
-    public Restaurant get(long id) throws RestaurantNotFoundException {
-        return restaurantRepository.findById(id).orElseThrow(RestaurantNotFoundException::new);
+        return restaurantRepository.findAll();
     }
 
-    public Restaurant add(long reservationId, Restaurant restaurant) throws ReservationNotFoundException {
-        Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(ReservationNotFoundException::new);
-        restaurant.setReservations(reservation);
+    public Restaurant get(long id) throws RestaurantNotFoundException {
+        return restaurantRepository.findById(id)
+                .orElseThrow(RestaurantNotFoundException::new);
+    }
+
+    public Restaurant add(Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
     }
 
-    public void delete(long id) throws ReservationNotFoundException {
-        restaurantRepository.findById(id).orElseThrow(ReservationNotFoundException::new);
-        reservationRepository.deleteById(id);
+    public void delete(long id) throws RestaurantNotFoundException {
+        if (!restaurantRepository.existsById(id)) {
+            throw new RestaurantNotFoundException();
+        }
+        restaurantRepository.deleteById(id);
     }
-    public Restaurant modify(long restaurantId, Restaurant restaurant) throws ReservationNotFoundException {
-        Restaurant restaurant1 = restaurantRepository.findById(restaurantId).orElseThrow(RestaurantNotFoundException::new);
 
-        modelMapper.map(restaurant, restaurant1);
-        restaurantRepository.save(restaurant1);
-        return modelMapper.map(restaurant1, Restaurant.class);
+    public Restaurant modify(long restaurantId, Restaurant restaurant) throws RestaurantNotFoundException {
+        Restaurant existingRestaurant = restaurantRepository.findById(restaurantId)
+                .orElseThrow(RestaurantNotFoundException::new);
+
+        modelMapper.map(restaurant, existingRestaurant);
+        return restaurantRepository.save(existingRestaurant);
     }
 }

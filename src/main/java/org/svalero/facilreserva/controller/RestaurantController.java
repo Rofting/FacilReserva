@@ -1,5 +1,7 @@
 package org.svalero.facilreserva.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.svalero.facilreserva.domain.Restaurant;
 import org.svalero.facilreserva.service.RestaurantService;
 import org.svalero.facilreserva.exception.RestaurantNotFoundException;
@@ -11,33 +13,50 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/restaurants")
+@RequestMapping("/restaurants") // Define la ruta base
 public class RestaurantController {
 
     @Autowired
     private RestaurantService restaurantService;
 
+    private final Logger logger = LoggerFactory.getLogger(RestaurantController.class);
+
+    // Obtener todos los restaurantes
     @GetMapping
-    public List<Restaurant> getAllRestaurants() {
-        return restaurantService.getAll();
+    public ResponseEntity<List<Restaurant>> getAllRestaurants() {
+        logger.info("Fetching all restaurants");
+        return ResponseEntity.ok(restaurantService.getAll());
     }
 
+    // Obtener un restaurante por ID
+    @GetMapping("/{restaurantId}")
+    public ResponseEntity<Restaurant> getById(@PathVariable Long restaurantId) throws RestaurantNotFoundException {
+        logger.info("Fetching restaurant with id: {}", restaurantId);
+        return ResponseEntity.ok(restaurantService.get(restaurantId));
+    }
+
+    // Agregar un nuevo restaurante
     @PostMapping
     public ResponseEntity<Restaurant> addRestaurant(@RequestBody Restaurant restaurant) {
+        logger.info("Adding new restaurant");
         Restaurant newRestaurant = restaurantService.add(restaurant);
-        return new ResponseEntity<>(newRestaurant, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newRestaurant);
     }
 
+    // Modificar un restaurante
     @PutMapping("/{restaurantId}")
     public ResponseEntity<Restaurant> modifyRestaurant(@PathVariable long restaurantId, @RequestBody Restaurant restaurant)
             throws RestaurantNotFoundException {
+        logger.info("Modifying restaurant with id: {}", restaurantId);
         Restaurant modifiedRestaurant = restaurantService.modify(restaurantId, restaurant);
-        return new ResponseEntity<>(modifiedRestaurant, HttpStatus.OK);
+        return ResponseEntity.ok(modifiedRestaurant);
     }
 
+    // Eliminar un restaurante
     @DeleteMapping("/{restaurantId}")
     public ResponseEntity<Void> deleteRestaurant(@PathVariable long restaurantId) throws RestaurantNotFoundException {
+        logger.info("Deleting restaurant with id: {}", restaurantId);
         restaurantService.delete(restaurantId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 }

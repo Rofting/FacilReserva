@@ -4,10 +4,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.svalero.facilreserva.domain.Restaurant;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface RestaurantRepository extends CrudRepository<Restaurant, Integer> {
+public interface RestaurantRepository extends CrudRepository<Restaurant, Long> {
     List<Restaurant> findAll();
-    List<Restaurant> findById(Long id);
+    Optional<Restaurant> findById(Long id);
     List<Restaurant> findByName(String name);
     List<Restaurant> findByAddress(String address);
 }

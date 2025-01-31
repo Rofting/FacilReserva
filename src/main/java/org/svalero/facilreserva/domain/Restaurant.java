@@ -18,12 +18,11 @@ public class Restaurant {
     private String address;
 
     @Column(nullable = false)
-    private String capacity;
+    private int capacity; // Asegúrate de que esto sea un int, no String.
 
     @Column(nullable = false)
     private Boolean available;
 
-    // Relación OneToMany con las reservas (un restaurante puede tener muchas reservas)
-    @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reservation> reservations;
 }
