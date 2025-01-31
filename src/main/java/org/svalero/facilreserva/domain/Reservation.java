@@ -2,13 +2,10 @@ package org.svalero.facilreserva.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.time.LocalDate;
-
 
 @Data
 @Entity
-
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +23,8 @@ public class Reservation {
     @Column(nullable = false)
     private Boolean confirmation;
 
+    // Relación con Restaurant
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    private Restaurant restaurant;  // El restaurante al que se asocia esta reserva
 }
