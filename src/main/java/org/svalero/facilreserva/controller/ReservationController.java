@@ -39,6 +39,15 @@ public class ReservationController {
         return new ResponseEntity<>(reservations, HttpStatus.OK);
     }
 
+    //VER Reserva de Restaurante
+    @GetMapping("/restaurants/{restaurantId}/reservations")
+    public ResponseEntity<List<ReservationOutDto>> getReservationRestaurant(@PathVariable("restaurantId") long restaurantId) throws RestaurantNotFoundException {
+        logger.info("BEGIN getReservationRestaurant");
+        List<ReservationOutDto> reservationRestaurant = reservationService.getByRestaurantId(restaurantId);
+        logger.info("END getUserApartaments");
+        return new ResponseEntity<>(reservationRestaurant, HttpStatus.OK);
+    }
+
     // Obtener una reserva por ID
     @GetMapping("/reservations/{reservationId}")
     public ResponseEntity<Reservation> getById(@PathVariable Long reservationId) throws ReservationNotFoundException {
