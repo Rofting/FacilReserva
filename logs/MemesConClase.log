@@ -1,0 +1,81 @@
+%PARSER_ERROR[d] %PARSER_ERROR[p] %PARSER_ERROR[C] [%PARSER_ERROR[t]] %PARSER_ERROR[m]%PARSER_ERROR[n]java.lang.IllegalStateException: java.lang.IllegalStateException: Logback configuration error detected: 
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - There is no conversion class registered for composite conversion word [white]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - Failed to create converter for [%white] keyword
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - There is no conversion class registered for composite conversion word [highlight]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - Failed to create converter for [%highlight] keyword
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - There is no conversion class registered for composite conversion word [blue]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - Failed to create converter for [%blue] keyword
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - There is no conversion class registered for composite conversion word [yellow]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - Failed to create converter for [%yellow] keyword
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - There is no conversion class registered for conversion word [msg]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - [msg] is not a valid conversion word
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - There is no conversion class registered for conversion word [n]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - [n] is not a valid conversion word
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - There is no conversion class registered for conversion word [throwable]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - [throwable] is not a valid conversion word
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - There is no conversion class registered for conversion word [d]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - [d] is not a valid conversion word
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - There is no conversion class registered for conversion word [p]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - [p] is not a valid conversion word
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - There is no conversion class registered for conversion word [C]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - [C] is not a valid conversion word
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - There is no conversion class registered for conversion word [t]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - [t] is not a valid conversion word
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - There is no conversion class registered for conversion word [m]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - [m] is not a valid conversion word
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - There is no conversion class registered for conversion word [n]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - [n] is not a valid conversion word
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeSystem(LoggingApplicationListener.java:347)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initialize(LoggingApplicationListener.java:298)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEnvironmentPreparedEvent(LoggingApplicationListener.java:246)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEvent(LoggingApplicationListener.java:223)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:185)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:178)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:156)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:138)
+	at org.springframework.boot.context.event.EventPublishingRunListener.multicastInitialEvent(EventPublishingRunListener.java:136)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:81)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$environmentPrepared$2(SpringApplicationRunListeners.java:64)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:118)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:112)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:63)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:353)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:313)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at org.svalero.facilreserva.FacilReservaApplication.main(FacilReservaApplication.java:10)
+Caused by: java.lang.IllegalStateException: Logback configuration error detected: 
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - There is no conversion class registered for composite conversion word [white]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - Failed to create converter for [%white] keyword
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - There is no conversion class registered for composite conversion word [highlight]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - Failed to create converter for [%highlight] keyword
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - There is no conversion class registered for composite conversion word [blue]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - Failed to create converter for [%blue] keyword
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - There is no conversion class registered for composite conversion word [yellow]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - Failed to create converter for [%yellow] keyword
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - There is no conversion class registered for conversion word [msg]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - [msg] is not a valid conversion word
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - There is no conversion class registered for conversion word [n]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - [n] is not a valid conversion word
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - There is no conversion class registered for conversion word [throwable]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@24111ef1 - [throwable] is not a valid conversion word
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - There is no conversion class registered for conversion word [d]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - [d] is not a valid conversion word
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - There is no conversion class registered for conversion word [p]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - [p] is not a valid conversion word
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - There is no conversion class registered for conversion word [C]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - [C] is not a valid conversion word
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - There is no conversion class registered for conversion word [t]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - [t] is not a valid conversion word
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - There is no conversion class registered for conversion word [m]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - [m] is not a valid conversion word
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - There is no conversion class registered for conversion word [n]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@1f3f02ee - [n] is not a valid conversion word
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.reportConfigurationErrorsIfNecessary(LogbackLoggingSystem.java:291)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.loadConfiguration(LogbackLoggingSystem.java:269)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initializeWithConventions(AbstractLoggingSystem.java:81)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initialize(AbstractLoggingSystem.java:61)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.initialize(LogbackLoggingSystem.java:197)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeSystem(LoggingApplicationListener.java:332)
+	... 19 common frames omitted
