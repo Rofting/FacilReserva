@@ -1199,8 +1199,3 @@ org.svalero.facilreserva.exception.RestaurantNotFoundException: Restaurant not f
 2025-02-01 13:42:34,416 WARN c.z.h.p.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=27m54s891ms677µs700ns).
 2025-02-01 13:45:22,580 INFO o.s.f.c.RestaurantController [http-nio-8080-exec-8] Begin Get all restaurants
 2025-02-01 13:45:22,589 INFO o.s.f.c.RestaurantController [http-nio-8080-exec-8] End all restaurants
-2025-02-01 13:50:16,494 INFO o.s.b.w.e.t.GracefulShutdown [SpringApplicationShutdownHook] Commencing graceful shutdown. Waiting for active requests to complete
-2025-02-01 13:50:16,509 INFO o.s.b.w.e.t.GracefulShutdown [tomcat-shutdown] Graceful shutdown complete
-2025-02-01 13:50:16,514 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-02-01 13:50:16,519 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
-2025-02-01 13:50:16,531 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.

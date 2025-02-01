@@ -61,4 +61,10 @@ public class ReservationService {
 
         return modelMapper.map(newReservation, ReservationOutDto.class);
     }
+
+    public List<ReservationOutDto> getByRestaurantId(long restaurantId) throws RestaurantNotFoundException{
+        Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow(RestaurantNotFoundException::new);
+        List<Reservation> reservations = reservationRepository.findByRestaurant(restaurant);
+        return modelMapper.map(reservations, new TypeToken<List<ReservationOutDto>>(){}.getType());
+    }
 }
