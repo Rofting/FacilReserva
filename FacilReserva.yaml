@@ -1,26 +1,24 @@
 openapi: 3.0.3
 info:
   title: FacilReserva API
-  description: API para gestionar reservas y restaurantes.
+  description: API para gestionar reservas y restaurantes. Permite la creación, modificación, eliminación y consulta de reservas y restaurantes, facilitando la administración de disponibilidad y confirmaciones.
   version: 1.0.0
 tags:
   - name: reservations
-    description: Operaciones con las reservas
+    description: Operaciones relacionadas con la gestión de reservas en los restaurantes.
   - name: restaurants
-    description: Opereraciones con los restaurantes
-servers:
-  - url: /api
-    description: API base URL
+    description: Operaciones para la administración de restaurantes y sus detalles.
 paths:
   /reservations:
     get:
       tags:
         - reservations
       summary: Obtener todas las reservas
+      description: Recupera la lista completa de reservas registradas en el sistema.
       operationId: getAllReservations
       responses:
         '200':
-          description: Lista de todas las reservas
+          description: Lista de todas las reservas existentes.
           content:
             application/json:
               schema:
@@ -30,7 +28,8 @@ paths:
     post:
       tags:
         - reservations
-      summary: Agregar una nueva reserva
+      summary: Crear una nueva reserva
+      description: Permite registrar una nueva reserva en un restaurante específico.
       operationId: addReservation
       requestBody:
         required: true
@@ -40,7 +39,7 @@ paths:
               $ref: '#/components/schemas/ReservationInDto'
       responses:
         '201':
-          description: Reserva creada con éxito
+          description: Reserva creada con éxito.
           content:
             application/json:
               schema:
@@ -51,6 +50,7 @@ paths:
       tags:
         - reservations
       summary: Modificar una reserva existente
+      description: Actualiza los detalles de una reserva previamente registrada mediante su identificador único.
       operationId: modifyReservation
       parameters:
         - name: reservationId
@@ -66,18 +66,19 @@ paths:
               $ref: '#/components/schemas/ReservationInDto'
       responses:
         '200':
-          description: Reserva modificada con éxito
+          description: Reserva modificada con éxito.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ReservationOutDto'
         '404':
-          description: Reserva no encontrada
+          description: Reserva no encontrada.
 
     delete:
       tags:
         - reservations
       summary: Eliminar una reserva existente
+      description: Elimina una reserva identificada por su ID si existe en el sistema.
       operationId: deleteReservation
       parameters:
         - name: reservationId
@@ -87,19 +88,20 @@ paths:
             type: integer
       responses:
         '204':
-          description: Reserva eliminada con éxito
+          description: Reserva eliminada con éxito.
         '404':
-          description: Reserva no encontrada
+          description: Reserva no encontrada.
 
   /restaurants:
     get:
       tags:
         - restaurants
       summary: Obtener todos los restaurantes
+      description: Recupera una lista con todos los restaurantes registrados en la plataforma.
       operationId: getAllRestaurants
       responses:
         '200':
-          description: Lista de todos los restaurantes
+          description: Lista de todos los restaurantes.
           content:
             application/json:
               schema:
@@ -110,6 +112,7 @@ paths:
       tags:
         - restaurants
       summary: Agregar un nuevo restaurante
+      description: Permite registrar un nuevo restaurante con su información relevante.
       operationId: addRestaurant
       requestBody:
         required: true
@@ -119,7 +122,7 @@ paths:
               $ref: '#/components/schemas/RestaurantInDto'
       responses:
         '201':
-          description: Restaurante creado con éxito
+          description: Restaurante creado con éxito.
           content:
             application/json:
               schema:
@@ -130,6 +133,7 @@ paths:
       tags:
         - restaurants
       summary: Modificar un restaurante existente
+      description: Permite actualizar la información de un restaurante específico mediante su ID.
       operationId: modifyRestaurant
       parameters:
         - name: restaurantId
@@ -145,18 +149,19 @@ paths:
               $ref: '#/components/schemas/RestaurantInDto'
       responses:
         '200':
-          description: Restaurante modificado con éxito
+          description: Restaurante modificado con éxito.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RestaurantOutDto'
         '404':
-          description: Restaurante no encontrado
+          description: Restaurante no encontrado.
 
     delete:
       tags:
         - restaurants
       summary: Eliminar un restaurante
+      description: Elimina un restaurante identificado por su ID de la base de datos.
       operationId: deleteRestaurant
       parameters:
         - name: restaurantId
@@ -166,9 +171,9 @@ paths:
             type: integer
       responses:
         '204':
-          description: Restaurante eliminado con éxito
+          description: Restaurante eliminado con éxito.
         '404':
-          description: Restaurante no encontrado
+          description: Restaurante no encontrado.
 
 components:
   schemas:
@@ -177,72 +182,72 @@ components:
       properties:
         nameReservation:
           type: string
-          description: Nombre de la reserva
+          description: Nombre de la persona que realiza la reserva.
         dateReservation:
           type: string
           format: date
-          description: Fecha de la reserva
+          description: Fecha en la que se realizará la reserva.
         persons:
           type: integer
-          description: Número de personas
+          description: Número de personas en la reserva.
         confirmation:
           type: boolean
-          description: Estado de confirmación
+          description: Indica si la reserva ha sido confirmada o no.
         restaurantId:
           type: integer
-          description: ID del restaurante asociado
+          description: ID del restaurante donde se realizará la reserva.
     ReservationOutDto:
       type: object
       properties:
         id:
           type: integer
-          description: ID de la reserva
+          description: Identificador único de la reserva.
         nameReservation:
           type: string
-          description: Nombre de la reserva
+          description: Nombre de la reserva.
         dateReservation:
           type: string
           format: date
-          description: Fecha de la reserva
+          description: Fecha de la reserva.
         persons:
           type: integer
-          description: Número de personas
+          description: Número de personas en la reserva.
         confirmation:
           type: boolean
-          description: Estado de confirmación
+          description: Estado de confirmación de la reserva.
         restaurantId:
           type: integer
-          description: ID del restaurante asociado
+          description: ID del restaurante asociado.
     RestaurantInDto:
       type: object
       properties:
         name:
           type: string
-          description: Nombre del restaurante
+          description: Nombre del restaurante.
         address:
           type: string
-          description: Dirección del restaurante
+          description: Dirección física del restaurante.
         capacity:
           type: integer
-          description: Capacidad del restaurante
+          description: Capacidad máxima del restaurante en términos de número de clientes.
         available:
           type: boolean
-          description: Estado de disponibilidad del restaurante
+          description: Indica si el restaurante está disponible para reservas.
     RestaurantOutDto:
       type: object
       properties:
         id:
           type: integer
-          description: ID del restaurante
+          description: Identificador único del restaurante.
         name:
           type: string
-          description: Nombre del restaurante
+          description: Nombre del restaurante.
         address:
           type: string
-          description: Dirección del restaurante
+          description: Dirección del restaurante.
         capacity:
           type: integer
-          description: Capacidad del restaurante
+          description: Capacidad del restaurante.
         available:
           type: boolean
-          description: Estado de disponibilidad del restaurante
+          description: Estado de disponibilidad del restaurante.
